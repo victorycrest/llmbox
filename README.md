@@ -1,8 +1,8 @@
 <div align='center'>
 
-<img src='logo/llmbox_1024.png' width='20%'>
+<img src='https://raw.githubusercontent.com/victorycrest/llmbox/main/logo/llmbox_1024.png' width='20%'>
 <h1>LLM Box</h1>
-Easy <---> Fun <---> Open
+<i>LLMs at your service</i>
 
 <br>
 <br>
@@ -11,14 +11,28 @@ Easy <---> Fun <---> Open
 [![GitHub](https://img.shields.io/github/stars/victorycrest/llmbox?color=yellowgreen&logo=github)](https://img.shields.io/github/stars/victorycrest/llmbox?color=yellowgreen&logo=github)
 [![Twitter](https://img.shields.io/twitter/follow/victorycrest)](https://twitter.com/victorycrest)
 
+[![PyPI Version](https://img.shields.io/pypi/v/llmbox?label=pypi&color=green)](https://pypi.org/project/llmbox)
+[![Downloads](https://img.shields.io/pypi/dm/llmbox?color=orange)](https://pypi.org/project/llmbox)
+[![Python Version](https://img.shields.io/pypi/pyversions/llmbox?color=yellow)](https://pypi.org/project/llmbox)
+[![Docs](https://readthedocs.org/projects/llmbox/badge/?version=latest)](https://llmbox.readthedocs.io/en/latest)
+
 </div>
+
+## Index
+
+* [Mission](#Mission)
+* [Applications](#Applications)
+* [Credits](#Credits)
+* [License](#License)
 
 ## Mission 🚀
 Large Language Models (LLMs) have taken the world by storm with its endless capabilities and applications.
 
 But we are still in the early days.
 
-LLM Box is a collection of applications built using open source and/or enterprise LLMs as solutions for simple or complex use cases.
+LLM Box is a collection of UI-based applications built using open source and/or enterprise LLMs as solutions for simple, fun or complex use cases.
+
+And there is a Python package too.
 
 ## Applications 🖥️
 
