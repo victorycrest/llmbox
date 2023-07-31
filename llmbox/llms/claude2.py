@@ -10,7 +10,7 @@ class Claude2(BaseLLM):
 
     def generate(self, prompt: str, max_tokens_to_sample: int = 1000):
         return self._anthropic.completions.create(
-            max_tokens_to_sample=max_tokens_to_sample,
+            prompt=prompt,
             model='claude-2',
-            prompt=prompt
-        ).completion.strip()
+            max_tokens_to_sample=max_tokens_to_sample
+        ).completion

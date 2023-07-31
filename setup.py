@@ -1,14 +1,11 @@
 import setuptools
 
-with open('VERSION.txt', 'r') as f:
-    version = f.read()
-
 with open('README.md', 'r') as f:
     long_description = f.read()
 
 setuptools.setup(
     name='llmbox',
-    version=version,
+    version='0.0.2',
     author='Victory Crest',
     author_email='victorycrest1602@gmail.com',
     description='LLMs at your service',
