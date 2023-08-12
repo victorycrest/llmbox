@@ -2,14 +2,21 @@ import abc
 from enum import Enum
 
 
-class LLMAuthor(Enum):
-    """Determines the author of an LLM."""
+class LLMCreator(Enum):
+    """
+    List of LLM creators.
+    """
 
     ANTHROPIC = 1
 
 
 class BaseLLM(abc.ABC):
-    """Represents an LLM."""
+    """
+    Class for LLMs.
 
-    def __init__(self, author: LLMAuthor):
-        self._author = author
+    Args:
+        creator(LLMCreator): Creator of LLM
+    """
+
+    def __init__(self, creator: LLMCreator):
+        self._creator = creator

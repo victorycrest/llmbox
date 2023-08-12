@@ -2,6 +2,9 @@ from enum import Enum
 
 
 class Role(Enum):
+    """
+    List of roles.
+    """
     User = 1
     AI = 2
 
@@ -10,36 +13,77 @@ class Role(Enum):
 
 
 class PromptFormat(Enum):
+    """
+    List of prompt formats.
+    """
     Anthropic = 1
 
 
 class Message:
-    def __init__(self, content: str, role: Role):
-        self.content = content
+    """
+    Class for a message.
+
+    Args:
+        text(str): Text of the message
+        role(Role): Role of the message
+    """
+
+    def __init__(self, text: str, role: Role):
+        self.text = text
         self.role = role
 
     def __repr__(self):
-        return f'<Role: {self.role}, Content: {self.content}>'
+        return f'<Role: {self.role}, Text: {self.text}>'
 
 
 class Chat:
+    """
+    Class for a chat session.
+    """
+
     def __init__(self):
         self._messages = []
 
-    def add_message(self, message: Message):
+    def add_message(self, message: Message) -> None:
+        """
+        Add a message to the chat.
+
+        Args:
+            message(Message): Message to be added to chat
+
+        Returns:
+            None: None
+        """
+
         self._messages.append(message)
 
-    def generate_prompt(self, prompt_format: PromptFormat):
+    def generate_prompt(self, prompt_format: PromptFormat) -> str:
+        """
+        Generate prompt from the chat.
+
+        Args:
+            prompt_format(PromptFormat): Format of the prompt
+
+        Returns:
+            str: Generated prompt
+        """
+
         if prompt_format == PromptFormat.Anthropic:
             return self.generate_prompt_anthropic()
 
-    def generate_prompt_anthropic(self):
+    def generate_prompt_anthropic(self) -> str:
+        """
+        Generate prompt from the chat in Anthropic's format.
+
+        Returns:
+            str: Generated prompt
+        """
         prompt = ''
         for i, message in enumerate(self._messages):
             if i % 2 == 0:
-                prompt += f'\n\nHuman: {message.content} \n\nAssistant:'
+                prompt += f'\n\nHuman: {message.text} \n\nAssistant:'
             else:
-                prompt += message.content
+                prompt += message.text
 
         return prompt
 
@@ -48,4 +92,4 @@ class Chat:
         return self._messages
 
     def __repr__(self):
-        return '\n'.join(f'Role: {message.role}\tContent: {message.content}' for message in self._messages)
+        return '\n'.join(f'Role: {message.role}\tContent: {message.text}' for message in self._messages)
