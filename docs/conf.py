@@ -7,7 +7,7 @@ copyright = '2023, Victory Crest'
 author = 'Victory Crest'
 extensions = [
     'sphinx.ext.autodoc',
-    'sphinxcontrib.napoleon'
+    'sphinx.ext.napoleon'
 ]
 templates_path = ['_templates']
 exclude_patterns = []
