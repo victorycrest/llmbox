@@ -7,3 +7,4 @@ LLM's at your service.
    :caption: Contents:
 
    llms
+   chat

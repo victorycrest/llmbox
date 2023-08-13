@@ -1,16 +1,16 @@
 LLMs
 ====
 
-Claude2
---------------
+Anthropic
+---------
 
 .. autoclass:: llmbox.llms.claude2.Claude2
    :members:
    :undoc-members:
    :show-inheritance:
 
-BaseLLM
-----------
+Base
+----
 
 .. autoclass:: llmbox.llms.base.BaseLLM
    :members:
