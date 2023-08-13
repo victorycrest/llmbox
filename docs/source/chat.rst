@@ -1,9 +1,6 @@
 Chat
 ====
 
-Chat
-----
-
 .. autoclass:: llmbox.chat.chat.Chat
    :members:
    :undoc-members:

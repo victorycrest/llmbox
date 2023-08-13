@@ -1,1 +1,1 @@
-from llmbox.llms.claude2 import Claude2
+from llmbox.llms.anthropic import Claude2

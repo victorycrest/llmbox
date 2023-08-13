@@ -33,7 +33,7 @@ class Claude2(BaseLLM):
 
             from llmbox.llms import Claude2
             llm = Claude2()
-            response = llm.generate(prompt='\n\nHuman: How far is the moon from the earth? \n\nAssistant:')
+            response = llm.generate(prompt='\\n\\nHuman: How far is the moon from the earth? \\n\\nAssistant:')
             print(response)
         """
 

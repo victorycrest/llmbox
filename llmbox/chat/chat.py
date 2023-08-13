@@ -4,9 +4,6 @@ from enum import Enum
 class Role(Enum):
     """
     List of roles.
-
-    User = 1
-    AI = 2
     """
 
     User = 1
@@ -19,8 +16,6 @@ class Role(Enum):
 class PromptFormat(Enum):
     """
     List of prompt formats.
-
-    Anthropic = 1
     """
 
     Anthropic = 1

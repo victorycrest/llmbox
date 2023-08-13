@@ -8,3 +8,4 @@ LLM's at your service.
 
    llms
    chat
+   base

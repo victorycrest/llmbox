@@ -12,7 +12,7 @@ class LLMCreator(Enum):
 
 class BaseLLM(abc.ABC):
     """
-    Class for LLMs.
+    Base class for LLMs.
 
     Args:
         creator(LLMCreator): Creator of LLM
