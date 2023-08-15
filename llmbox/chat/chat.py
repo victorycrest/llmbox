@@ -1,3 +1,4 @@
+from anthropic import HUMAN_PROMPT, AI_PROMPT
 from enum import Enum
 
 
@@ -51,7 +52,7 @@ class Chat:
         Add a message to the chat.
 
         Args:
-            message(Message): Message to be added to chat
+            message(Message): Message to be added to the chat
 
         Returns:
             None: None
@@ -83,7 +84,7 @@ class Chat:
         prompt = ''
         for i, message in enumerate(self._messages):
             if i % 2 == 0:
-                prompt += f'\n\nHuman: {message.text} \n\nAssistant:'
+                prompt += f'{HUMAN_PROMPT}: {message.text} {AI_PROMPT}:'
             else:
                 prompt += message.text
 
@@ -91,6 +92,13 @@ class Chat:
 
     @property
     def messages(self):
+        """
+        List of messages in the chat.
+
+        Returns:
+            list: List of messages
+        """
+
         return self._messages
 
     def __repr__(self):
