@@ -26,5 +26,5 @@ add_module_names = False
 autodoc_default_options = {
     'members': True,
     'undoc-members': True,
-    'member_order': 'bysource'
+    'member-order': 'bysource'
 }
