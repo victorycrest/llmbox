@@ -4,7 +4,8 @@ import traceback
 from h2o_wave import Q, data, expando_to_dict, ui
 from llmbox.chat import Chat, Role
 
-# LLM Box colour
+# LLM Box
+llmbox_logo_url = 'https://raw.githubusercontent.com/victorycrest/llmbox/main/logo/llmbox_1024.png'
 llmbox_colour = '#e5d5c0'
 
 # App name
@@ -12,18 +13,19 @@ app_name = 'Claude Box'
 
 # Repo details
 repo_url = 'https://github.com/victorycrest/llmbox'
-issue_url = f'{repo_url}/issues/new?assignees=victorycrest&labels=bug&template=error-report.md&title=%5BERROR%5D'
+issue_url = f'{repo_url}/issues/new?assignees=victorycrest&labels=app%2C+bug&template=app-error-report.md&title=%5BAPP+ERROR%5D'
 
 # Meta card
 meta = ui.meta_card(
     box='',
     title='LLM Box',
+    icon=llmbox_logo_url,
     layouts=[
         ui.layout(
             breakpoint='xs',
             zones=[
                 ui.zone(name='header'),
-                ui.zone(name='main', direction='row', size='calc(100vh - 130px)'),
+                ui.zone(name='main', direction='row', size='calc(100vh - 165px)'),
                 ui.zone(name='footer')
             ]
         )
@@ -52,15 +54,14 @@ header = ui.header_card(
     box='header',
     title=app_name,
     subtitle='Chat with the Claude family of LLMs by Anthropic',
-    icon='OfficeChat',
-    icon_color='black',
+    image=llmbox_logo_url,
     items=[ui.toggle(name='theme_dark', label='Dark Mode', value=True, trigger=True)]
 )
 
 # Footer card
 footer = ui.footer_card(
     box='footer',
-    caption=f'Learn more about <a href="{repo_url}" target="_blank">LLM Box: LLMs at your service</a>'
+    caption=f'<a href="{repo_url}" target="_blank"><img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="20">'
 )
 
 # Fallback card
