@@ -32,17 +32,24 @@ But we are still in the early days.
 
 LLM Box is a collection of UI-based applications built using open source and/or enterprise LLMs as solutions for simple, fun or complex use cases.
 
-And there is a Python package too.
+Why code when you don't have to? But ok, there is a Python package too.
 
 ## Applications 🖥️
 
-*Coming Soon...*
+#### Playground
+| App                                                                            | Description                                      |
+|--------------------------------------------------------------------------------|--------------------------------------------------|
+| [Claude Box](https://github.com/victorycrest/llmbox/tree/main/apps/claude_box) | Chat with the Claude family of LLMs by Anthropic |
 
 ## Credits 🙏
 
-Logo generated using [Midjourney](https://www.midjourney.com) with the prompt:
+#### Logo
+Generated using [Midjourney](https://www.midjourney.com) with the prompt:
 
 > *Minimalistic vector logo made of lines featuring a fancy box, using simple shapes and lines in a blocky, modern, and artistic style with a color scheme of five colors*
+
+#### LLMs
+* [Claude by Anthropic](https://www.anthropic.com/index/introducing-claude)
 
 ## License 📋
 This project is licensed under the [Apache License 2.0](https://github.com/victorycrest/llmbox/blob/master/LICENSE).
