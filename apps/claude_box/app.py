@@ -63,6 +63,7 @@ async def initialize_client(q: Q):
 
     # Set initial argument values
     q.client.theme_dark = True
+    q.client.max_tokens_to_sample = 500
     q.client.llm = Claude2()
     q.client.chat = Chat()
 
@@ -115,13 +116,66 @@ async def chat(q: Q):
     q.client.chat.add_message(message=Message(text=q.args.chat, role=Role.User))
 
     # Generate LLM response
-    llm_response = q.client.llm.generate(prompt=q.client.chat.generate_prompt_anthropic())
+    llm_response = q.client.llm.generate(
+        prompt=q.client.chat.generate_prompt_anthropic(),
+        max_tokens_to_sample=q.client.max_tokens_to_sample
+    )
 
     # Add response to chat
     q.client.chat.add_message(message=Message(text=llm_response, role=Role.AI))
 
     # Update chat
     q.page['chatbox'] = cards.chatbox(chat=q.client.chat)
+
+    await q.page.save()
+
+
+@on('settings')
+async def settings(q: Q):
+    """
+    Display settings.
+    """
+
+    logging.info('Displaying settings')
+
+    # Dialog with settings
+    q.page['meta'].dialog = cards.dialog_settings(
+        theme_dark=q.client.theme_dark,
+        max_tokens_to_sample=q.client.max_tokens_to_sample
+    )
+
+    await q.page.save()
+
+
+@on('max_tokens_to_sample')
+@on('api_key')
+async def update_settings(q: Q):
+    """
+    Update settings.
+    """
+
+    logging.info('Updating settings')
+
+    if q.args.api_key:
+        # Initialize LLM if API key is inputted
+        q.client.llm = Claude2(api_key=q.args.api_key)
+    else:
+        # Copy settings to client if API key is not inputted
+        copy_expando(q.args, q.client)
+
+    await handle_fallback(q)
+
+
+@on('dialog_settings.dismissed')
+async def dismiss_dialog(q: Q):
+    """
+    Dismiss dialog.
+    """
+
+    logging.info('Dismissing dialog')
+
+    # Remove dialog
+    q.page['meta'].dialog = None
 
     await q.page.save()
 
