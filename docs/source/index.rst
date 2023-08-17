@@ -1,6 +1,10 @@
 LLM Box
 =======
-LLM's at your service.
+
+.. image:: _static/llmbox_1024.png
+   :width: 100
+
+LLMs at your service.
 
 .. toctree::
    :maxdepth: 2
