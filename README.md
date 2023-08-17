@@ -18,7 +18,7 @@
 
 </div>
 
-## Index
+## Index 📒
 
 * [Mission](#Mission)
 * [Applications](#Applications)
