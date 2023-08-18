@@ -3,9 +3,10 @@ import traceback
 
 from h2o_wave import Q, data, expando_to_dict, ui
 from llmbox.chat import Chat, Role
+from llmbox.llms.anthropic import AnthropicModels
 
 # LLM Box
-llmbox_logo_url = 'https://raw.githubusercontent.com/victorycrest/llmbox/main/logo/llmbox_1024.png'
+llmbox_logo_url = 'https://raw.githubusercontent.com/victorycrest/llmbox/main/docs/source/_static/llmbox_1024.png'
 llmbox_colour = '#e5d5c0'
 
 # App name
@@ -95,7 +96,7 @@ def chatbox(chat: Chat) -> ui.ChatbotCard:
     )
 
 
-def dialog_settings(theme_dark: bool, max_tokens_to_sample: int):
+def dialog_settings(theme_dark: bool, model: str, max_tokens_to_sample: int):
     """
     Dialog for settings.
     """
@@ -108,6 +109,13 @@ def dialog_settings(theme_dark: bool, max_tokens_to_sample: int):
             ui.textbox(name='api_key', label='API Key', password=True, trigger=True),
             ui.toggle(name='theme_dark', label='Dark Mode', value=theme_dark, trigger=True),
             ui.separator(label='Model'),
+            ui.dropdown(
+                name='model',
+                label='Model',
+                choices=[ui.choice(name=m.value.lower(), label=m.value.lower()) for m in AnthropicModels],
+                value=model,
+                trigger=True
+            ),
             ui.spinbox(
                 name='max_tokens_to_sample',
                 label='Max tokens to generate',

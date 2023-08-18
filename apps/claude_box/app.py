@@ -1,7 +1,8 @@
 import logging
+import os
 
 from h2o_wave import Q, main, app, copy_expando, handle_on, on
-from llmbox.llms import Claude2
+from llmbox.llms import ClaudeInstant1, Claude2
 from llmbox.chat import Chat, Message, Role
 
 import cards
@@ -63,6 +64,7 @@ async def initialize_client(q: Q):
 
     # Set initial argument values
     q.client.theme_dark = True
+    q.client.model = 'claude-2'
     q.client.max_tokens_to_sample = 500
     q.client.llm = Claude2()
     q.client.chat = Chat()
@@ -141,6 +143,7 @@ async def settings(q: Q):
     # Dialog with settings
     q.page['meta'].dialog = cards.dialog_settings(
         theme_dark=q.client.theme_dark,
+        model=q.client.model,
         max_tokens_to_sample=q.client.max_tokens_to_sample
     )
 
@@ -148,6 +151,7 @@ async def settings(q: Q):
 
 
 @on('max_tokens_to_sample')
+@on('model')
 @on('api_key')
 async def update_settings(q: Q):
     """
@@ -157,8 +161,23 @@ async def update_settings(q: Q):
     logging.info('Updating settings')
 
     if q.args.api_key:
+        # Save API key as environment variable if inputted
+        os.environ['ANTHROPIC_API_KEY'] = q.args.api_key
+
         # Initialize LLM if API key is inputted
-        q.client.llm = Claude2(api_key=q.args.api_key)
+        if q.client.model == 'claude-instant-1':
+            q.client.llm = ClaudeInstant1()
+        else:
+            q.client.llm = Claude2()
+    elif q.args.model:
+        # Copy settings to client if model is selected
+        copy_expando(q.args, q.client)
+
+        # Initialize LLM if model is selected
+        if q.client.model == 'claude-instant-1':
+            q.client.llm = ClaudeInstant1()
+        else:
+            q.client.llm = Claude2()
     else:
         # Copy settings to client if API key is not inputted
         copy_expando(q.args, q.client)
