@@ -5,7 +5,7 @@ with open('README.md', 'r') as f:
 
 setuptools.setup(
     name='llmbox',
-    version='0.1.1',
+    version='0.2.0',
     author='Victory Crest',
     author_email='victorycrest1602@gmail.com',
     description='LLMs at your service',
@@ -16,7 +16,7 @@ setuptools.setup(
         'Source': 'https://github.com/victorycrest/llmbox',
         'Tracker': 'https://github.com/victorycrest/llmbox/issues'
     },
-    python_requires='>=3.8',
+    python_requires='>=3.10',
     install_requires=[
         'anthropic'
     ],
@@ -25,9 +25,7 @@ setuptools.setup(
     platforms='any',
     classifiers=[
         'Programming Language :: Python :: 3.11',
-        'Programming Language :: Python :: 3.10',
-        'Programming Language :: Python :: 3.9',
-        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.10'
         'License :: OSI Approved :: Apache Software License',
         'Operating System :: OS Independent',
     ],
