@@ -49,6 +49,8 @@ Generated using [Midjourney](https://www.midjourney.com) with the prompt:
 > *Minimalistic vector logo made of lines featuring a fancy box, using simple shapes and lines in a blocky, modern, and artistic style with a color scheme of five colors*
 
 #### LLMs
+Powered by the creators of various LLMs who generously provide access:
+
 * [Claude by Anthropic](https://www.anthropic.com/index/introducing-claude)
 
 ## License 📋
