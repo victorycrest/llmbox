@@ -1,6 +1,6 @@
 <div align='center'>
 
-<img src='https://raw.githubusercontent.com/victorycrest/llmbox/main/logo/llmbox_1024.png' width='20%'>
+<img src='https://raw.githubusercontent.com/victorycrest/llmbox/main/docs/source/_static/llmbox_1024.png' width='20%'>
 <h1>LLM Box</h1>
 <i>LLMs at your service</i>
 
