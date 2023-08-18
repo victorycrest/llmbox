@@ -25,9 +25,9 @@ setuptools.setup(
     platforms='any',
     classifiers=[
         'Programming Language :: Python :: 3.11',
-        'Programming Language :: Python :: 3.10'
+        'Programming Language :: Python :: 3.10',
         'License :: OSI Approved :: Apache Software License',
-        'Operating System :: OS Independent',
+        'Operating System :: OS Independent'
     ],
     keywords=[
         'artificial intelligence',
