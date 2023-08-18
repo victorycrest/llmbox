@@ -1,6 +1,17 @@
+from enum import Enum
+
 from anthropic import Anthropic
 
 from .base import BaseLLM, LLMCreator
+
+
+class AnthropicModels(Enum):
+    """
+    List of Anthropic models.
+    """
+
+    CLAUDEINSTANT1 = 'claude-instant-1'
+    CLAUDE2 = 'claude-2'
 
 
 class AnthropicLLM(BaseLLM):
@@ -12,9 +23,9 @@ class AnthropicLLM(BaseLLM):
         api_key(str | None): API Key for accessing Anthropic LLMs
     """
 
-    _model = 'claude-2'
+    _model = AnthropicModels.CLAUDE2
 
-    def __init__(self, auth_token: str | None = None, api_key: str | None = None):
+    def __init__(self, auth_token: str = None, api_key: str = None):
         super().__init__(creator=LLMCreator.ANTHROPIC)
         self._anthropic = Anthropic(auth_token=auth_token, api_key=api_key)
 
@@ -46,7 +57,7 @@ class AnthropicLLM(BaseLLM):
 
         return self._anthropic.completions.create(
             prompt=prompt,
-            model=self._model,
+            model=str(self._model.value),
             max_tokens_to_sample=max_tokens_to_sample
         ).completion
 
@@ -70,7 +81,7 @@ class ClaudeInstant1(AnthropicLLM):
         print(response)
     """
 
-    _model = 'claude-instant-1'
+    _model = AnthropicModels.CLAUDEINSTANT1
 
 
 class Claude2(AnthropicLLM):
@@ -92,4 +103,4 @@ class Claude2(AnthropicLLM):
         print(response)
     """
 
-    _model = 'claude-2'
+    _model = AnthropicModels.CLAUDE2
