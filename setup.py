@@ -5,7 +5,7 @@ with open('README.md', 'r') as f:
 
 setuptools.setup(
     name='llmbox',
-    version='0.2.0',
+    version='0.3.0',
     author='Victory Crest',
     author_email='victorycrest1602@gmail.com',
     description='LLMs at your service',
@@ -18,7 +18,8 @@ setuptools.setup(
     },
     python_requires='>=3.10',
     install_requires=[
-        'anthropic'
+        'anthropic',
+        'openai'
     ],
     packages=setuptools.find_packages(),
     license='Apache License, Version 2.0',
