@@ -7,19 +7,11 @@ class Role(Enum):
     List of roles.
     """
 
-    User = 1
-    AI = 2
+    User = 'user'
+    Assistant = 'assistant'
 
     def __str__(self):
         return self.name
-
-
-class PromptFormat(Enum):
-    """
-    List of prompt formats.
-    """
-
-    Anthropic = 1
 
 
 class Message:
@@ -27,8 +19,16 @@ class Message:
     Class for a message.
 
     Args:
-        text(str): Text of the message
-        role(Role): Role of the message
+        text(str): Text of the message.
+        role(Role): Role of the message.
+
+    Example:
+
+        .. code-block:: python
+
+            from llmbox.chat import Message, Role
+
+            message = Message(text='How big is the earth?', role=Role.User)
     """
 
     def __init__(self, text: str, role: Role):
@@ -52,7 +52,7 @@ class Chat:
         Add a message to the chat.
 
         Args:
-            message(Message): Message to be added to the chat
+            message(Message): Message to be added to the chat.
 
         Returns:
             None: None
@@ -60,35 +60,32 @@ class Chat:
 
         self._messages.append(message)
 
-    def generate_prompt(self, prompt_format: PromptFormat) -> str:
-        """
-        Generate prompt from the chat.
-
-        Args:
-            prompt_format(PromptFormat): Format of the prompt
-
-        Returns:
-            str: Generated prompt
-        """
-
-        if prompt_format == PromptFormat.Anthropic:
-            return self.generate_prompt_anthropic()
-
     def generate_prompt_anthropic(self) -> str:
         """
         Generate prompt from the chat in Anthropic's format.
 
         Returns:
-            str: Generated prompt
+            str: Prompt string in Anthropic's format.
         """
+
         prompt = ''
         for i, message in enumerate(self._messages):
-            if i % 2 == 0:
+            if message.role.value == 'user':
                 prompt += f'{HUMAN_PROMPT}: {message.text} {AI_PROMPT}:'
             else:
                 prompt += message.text
 
         return prompt
+
+    def generate_messages_openai(self) -> list[dict]:
+        """
+        Generate message list from the chat in OpenAI's format.
+
+        Returns:
+            list: List of messages in OpenAI's format.
+        """
+
+        return [{'role': message.role.value, 'content': message.text} for message in self._messages]
 
     @property
     def messages(self):
@@ -96,7 +93,7 @@ class Chat:
         List of messages in the chat.
 
         Returns:
-            list: List of messages
+            list: List of messages.
         """
 
         return self._messages
