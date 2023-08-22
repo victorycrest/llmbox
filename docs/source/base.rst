@@ -6,4 +6,6 @@ Base
 
 .. autoclass:: llmbox.llms.base.LLMCreator
 
-.. autoclass:: llmbox.llms.anthropic.AnthropicModels
+.. autoclass:: llmbox.llms.claude.ClaudeModels
+
+.. autoclass:: llmbox.llms.gpt.GPTModels
