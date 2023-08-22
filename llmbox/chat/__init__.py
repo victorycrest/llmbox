@@ -1,1 +1,1 @@
-from llmbox.chat.chat import Chat, Message, PromptFormat, Role
+from llmbox.chat.chat import Chat, Message, Role
