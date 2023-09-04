@@ -27,8 +27,12 @@ async def serve(q: Q):
             await initialize_client(q)
 
         # Update theme if toggled
-        elif q.args.theme_dark is not None and q.args.theme_dark != q.client.theme_dark:
+        if q.args.theme_dark is not None and q.args.theme_dark != q.client.theme_dark:
             await update_theme(q)
+
+        # Switch settings tab if clicked
+        elif q.args.settings_tab:
+            await settings(q)
 
         # Delegate query to query handlers
         elif await handle_on(q):
@@ -50,7 +54,7 @@ async def initialize_app(q: Q):
     logging.info('Initializing app')
 
     # Set initial argument values
-    q.app.cards = ['chatbox', 'error']
+    q.app.cards = ['tabs', 'chatbox', 'error']
 
     q.app.initialized = True
 
@@ -63,18 +67,24 @@ async def initialize_client(q: Q):
     logging.info('Initializing client')
 
     # Set initial argument values
-    q.client.theme_dark = True
+    q.client.theme = 'llmbox-dark'
+    q.client.settings_tab = 'tab_model'
     q.client.model = 'claude-2'
-    q.client.max_tokens_to_sample = 500
+    q.client.max_tokens = 300
+    q.client.temperature = 0.5
+    q.client.top_p = 0.7
+    q.client.top_k = 5
+
+    # Initialize llm data
     q.client.llm = Claude2()
     q.client.chat = Chat()
 
-    # Add layouts, header and footer
+    # Add layouts and header
     q.page['meta'] = cards.meta
     q.page['header'] = cards.header
-    q.page['footer'] = cards.footer
 
     # Add cards for the main page
+    q.page['tabs'] = cards.tabs
     q.page['chatbox'] = cards.chatbox(chat=q.client.chat)
 
     q.client.initialized = True
@@ -82,26 +92,26 @@ async def initialize_client(q: Q):
     await q.page.save()
 
 
+@on('update_theme')
 async def update_theme(q: Q):
     """
     Update theme of app.
     """
 
-    # Copy argument values to client
-    copy_expando(q.args, q.client)
-
-    if q.client.theme_dark:
+    if q.client.theme == 'llmbox-light':
         logging.info('Updating theme to dark mode')
 
         # Update theme from light to dark mode
         q.page['meta'].theme = 'llmbox-dark'
         q.page['header'].icon_color = 'black'
+        q.client.theme = 'llmbox-dark'
     else:
         logging.info('Updating theme to light mode')
 
         # Update theme from dark to light mode
         q.page['meta'].theme = 'llmbox-light'
         q.page['header'].icon_color = '#e5d5c0'
+        q.client.theme = 'llmbox-light'
 
     await q.page.save()
 
@@ -119,12 +129,15 @@ async def chat(q: Q):
 
     # Generate LLM response
     llm_response = q.client.llm.generate(
-        prompt=q.client.chat.generate_prompt_anthropic(),
-        max_tokens_to_sample=q.client.max_tokens_to_sample
+        chat=q.client.chat,
+        max_tokens=q.client.max_tokens,
+        temperature=q.client.temperature,
+        top_p=q.client.top_p,
+        top_k=q.client.top_k
     )
 
     # Add response to chat
-    q.client.chat.add_message(message=Message(text=llm_response, role=Role.AI))
+    q.client.chat.add_message(message=Message(text=llm_response, role=Role.Assistant))
 
     # Update chat
     q.page['chatbox'] = cards.chatbox(chat=q.client.chat)
@@ -138,13 +151,22 @@ async def settings(q: Q):
     Display settings.
     """
 
-    logging.info('Displaying settings')
+    if q.args.settings_tab:
+        logging.info('Switching settings tab')
+
+        # Copy settings tab to client
+        copy_expando(q.args, q.client)
+    else:
+        logging.info('Displaying settings')
 
     # Dialog with settings
     q.page['meta'].dialog = cards.dialog_settings(
-        theme_dark=q.client.theme_dark,
+        settings_tab=q.client.settings_tab,
         model=q.client.model,
-        max_tokens_to_sample=q.client.max_tokens_to_sample
+        max_tokens=q.client.max_tokens,
+        temperature=q.client.temperature,
+        top_p=q.client.top_p,
+        top_k=q.client.top_k
     )
 
     await q.page.save()
@@ -183,6 +205,23 @@ async def update_settings(q: Q):
         copy_expando(q.args, q.client)
 
     await handle_fallback(q)
+
+
+@on('restart')
+async def restart(q: Q):
+    """
+    Restart chat.
+    """
+
+    logging.info('Restarting chat')
+
+    # Reset chat
+    q.client.chat = Chat()
+
+    # Update chat
+    q.page['chatbox'] = cards.chatbox(chat=q.client.chat)
+
+    await q.page.save()
 
 
 @on('dialog_settings.dismissed')
