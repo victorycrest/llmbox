@@ -52,6 +52,7 @@ Generated using [Midjourney](https://www.midjourney.com) with the prompt:
 Powered by the creators of various LLMs who generously provide access:
 
 * [Claude by Anthropic](https://www.anthropic.com/index/introducing-claude)
+* [GPT by OpenAI](https://platform.openai.com/docs/models)
 
 ## License 📋
 This project is licensed under the [Apache License 2.0](https://github.com/victorycrest/llmbox/blob/master/LICENSE).
