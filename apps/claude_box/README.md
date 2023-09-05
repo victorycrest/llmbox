@@ -2,7 +2,7 @@
 Chat with the Claude family of LLMs by Anthropic.
 
 ## Setup ⚙️
-1. Check the version of Python, must be Python 3.9+ but recommended to use Python 3.11+ for best experience
+1. Check the version of Python, must be Python 3.10+ but recommended to use Python 3.11+ for best experience
 
 ```commandline
 python3 --version
@@ -43,4 +43,4 @@ wave run app
 
 7. View the application on your local browser: [http://localhost:10101](http://localhost:10101)
 
-8. (If Step 5 was skipped) Add [Anthropic API Key](https://console.anthropic.com/account/keys) to the app from Settings option in the UI.
+8. (If Step 5 was skipped) Add [Anthropic API Key](https://console.anthropic.com/account/keys) to the app directly in the UI.
