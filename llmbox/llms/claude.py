@@ -1,4 +1,5 @@
 from enum import Enum
+import os
 
 from anthropic import Anthropic
 
@@ -52,20 +53,30 @@ class ClaudeInstant1(BaseLLM):
         timeout: float = None,
         max_retries: int = None
     ) -> None:
+        # Initialize parent class
         super().__init__(creator=LLMCreator.ANTHROPIC)
 
+        # Verify authentication
+        if auth_token is None and api_key is None and os.environ.get('ANTHROPIC_API_KEY') is None:
+            raise ValueError('API key not found. '
+                             'Set the environment variable ANTHROPIC_API_KEY with your API key (recommended) or '
+                             'pass the API key using the `api_key` argument while initializing the class.')
+
+        # Set input arguments
         self._auth_token = auth_token
         self._api_key = api_key
         self._base_url = base_url
         self._timeout = timeout
         self._max_retries = max_retries
 
+        # Create arguments for Anthropic client
         anthropic_arguments = {}
         anthropic_optionals = ['auth_token', 'api_key', 'base_url', 'timeout', 'max_retries']
         for argument in anthropic_optionals:
             if eval(argument) is not None:
                 anthropic_arguments[argument] = eval(argument)
 
+        # Initialize Anthropic client
         self._anthropic = Anthropic(**anthropic_arguments)
 
     def generate(
@@ -106,6 +117,7 @@ class ClaudeInstant1(BaseLLM):
             print(response)
         """
 
+        # Create arguments for LLM generation
         generation_arguments = {
             'model': 'claude-instant-1',
             'prompt': chat.generate_prompt_anthropic(),
@@ -116,7 +128,10 @@ class ClaudeInstant1(BaseLLM):
             if eval(argument) is not None:
                 generation_arguments[argument] = eval(argument)
 
-        return self._anthropic.completions.create(**generation_arguments).completion
+        # Generate response
+        response = self._anthropic.completions.create(**generation_arguments).completion
+
+        return response
 
     @property
     def base_url(self):
@@ -176,20 +191,30 @@ class Claude2(BaseLLM):
         timeout: float = None,
         max_retries: int = None
     ) -> None:
+        # Initialize parent class
         super().__init__(creator=LLMCreator.ANTHROPIC)
 
+        # Verify authentication
+        if auth_token is None and api_key is None and os.environ.get('ANTHROPIC_API_KEY') is None:
+            raise ValueError('API key not found. '
+                             'Set the environment variable ANTHROPIC_API_KEY with your API key (recommended) or '
+                             'pass the API key using the `api_key` argument while initializing the class.')
+
+        # Set input arguments
         self._auth_token = auth_token
         self._api_key = api_key
         self._base_url = base_url
         self._timeout = timeout
         self._max_retries = max_retries
 
+        # Create arguments for Anthropic client
         anthropic_arguments = {}
         anthropic_optionals = ['auth_token', 'api_key', 'base_url', 'timeout', 'max_retries']
         for argument in anthropic_optionals:
             if eval(argument) is not None:
                 anthropic_arguments[argument] = eval(argument)
 
+        # Initialize Anthropic client
         self._anthropic = Anthropic(**anthropic_arguments)
 
     def generate(
@@ -230,6 +255,7 @@ class Claude2(BaseLLM):
             print(response)
         """
 
+        # Create arguments for LLM generation
         generation_arguments = {
             'model': 'claude-2',
             'prompt': chat.generate_prompt_anthropic(),
@@ -240,7 +266,10 @@ class Claude2(BaseLLM):
             if eval(argument) is not None:
                 generation_arguments[argument] = eval(argument)
 
-        return self._anthropic.completions.create(**generation_arguments).completion
+        # Generate response
+        response = self._anthropic.completions.create(**generation_arguments).completion
+
+        return response
 
     @property
     def base_url(self):

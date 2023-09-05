@@ -1,4 +1,5 @@
 from enum import Enum
+import os
 
 import openai
 
@@ -41,11 +42,21 @@ class GPT35Turbo(BaseLLM):
     """
 
     def __init__(self, api_key: str = None) -> None:
+        # Initialize parent class
         super().__init__(creator=LLMCreator.OPENAI)
 
+        # Verify authentication
+        if api_key is None and os.environ.get('OPENAI_API_KEY') is None:
+            raise ValueError('API key not found. '
+                             'Set the environment variable OPENAI_API_KEY with your API key (recommended) or '
+                             'pass the API key using the `api_key` argument while initializing the class.')
+
+        # Initialize OpenAI client
         self._openai = openai
         if api_key is not None:
             self._openai.api_key = api_key
+        else:
+            self._openai.api_key = os.environ['OPENAI_API_KEY']
 
     def generate(
             self,
@@ -83,6 +94,7 @@ class GPT35Turbo(BaseLLM):
             print(response)
         """
 
+        # Create arguments for LLM generation
         generation_arguments = {
             'model': 'gpt-3.5-turbo',
             'messages': chat.generate_messages_openai()
@@ -92,7 +104,10 @@ class GPT35Turbo(BaseLLM):
             if eval(argument) is not None:
                 generation_arguments[argument] = eval(argument)
 
-        return openai.ChatCompletion.create(**generation_arguments).choices[0].message.content
+        # Generate response
+        response = openai.ChatCompletion.create(**generation_arguments).choices[0].message.content
+
+        return response
 
 
 class GPT4(BaseLLM):
@@ -123,11 +138,21 @@ class GPT4(BaseLLM):
     """
 
     def __init__(self, api_key: str = None) -> None:
+        # Initialize parent class
         super().__init__(creator=LLMCreator.OPENAI)
 
+        # Verify authentication
+        if api_key is None and os.environ.get('OPENAI_API_KEY') is None:
+            raise ValueError('API key not found. '
+                             'Set the environment variable OPENAI_API_KEY with your API key (recommended) or '
+                             'pass the API key using the `api_key` argument while initializing the class.')
+
+        # Initialize OpenAI client
         self._openai = openai
         if api_key is not None:
             self._openai.api_key = api_key
+        else:
+            self._openai.api_key = os.environ['OPENAI_API_KEY']
 
     def generate(
         self,
@@ -165,6 +190,7 @@ class GPT4(BaseLLM):
             print(response)
         """
 
+        # Create arguments for LLM generation
         generation_arguments = {
             'model': 'gpt-4',
             'messages': chat.generate_messages_openai()
@@ -174,4 +200,7 @@ class GPT4(BaseLLM):
             if eval(argument) is not None:
                 generation_arguments[argument] = eval(argument)
 
-        return openai.ChatCompletion.create(**generation_arguments).choices[0].message.content
+        # Generate response
+        response = openai.ChatCompletion.create(**generation_arguments).choices[0].message.content
+
+        return response
