@@ -76,7 +76,6 @@ async def initialize_client(q: Q):
     q.client.top_k = 5
 
     # Initialize llm data
-    q.client.llm = Claude2()
     q.client.chat = Chat()
 
     # Add layouts and header
@@ -87,7 +86,36 @@ async def initialize_client(q: Q):
     q.page['tabs'] = cards.tabs
     q.page['chatbox'] = cards.chatbox(chat=q.client.chat)
 
+    # Check API
+    try:
+        q.client.llm = Claude2()
+    except ValueError:
+        q.page['meta'].dialog = cards.dialog_api
+
     q.client.initialized = True
+
+    await q.page.save()
+
+
+@on('save_api')
+async def save_api(q: Q):
+    """
+    Save API key.
+    """
+
+    logging.info('Saving API key to environment')
+
+    # Save API key as environment variable
+    os.environ['OPENAI_API_KEY'] = q.args.api_key
+
+    # Initialize LLM
+    if q.client.model == 'claude-instant-1':
+        q.client.llm = ClaudeInstant1()
+    else:
+        q.client.llm = Claude2()
+
+    # Remove dialog
+    q.page['meta'].dialog = None
 
     await q.page.save()
 
@@ -172,9 +200,12 @@ async def settings(q: Q):
     await q.page.save()
 
 
+@on('top_k')
+@on('top_p')
+@on('temperature')
 @on('max_tokens_to_sample')
 @on('model')
-@on('api_key')
+@on('new_api_key')
 async def update_settings(q: Q):
     """
     Update settings.

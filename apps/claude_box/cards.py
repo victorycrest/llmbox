@@ -76,6 +76,29 @@ tabs = ui.tab_card(
     link=True
 )
 
+# API dialog
+dialog_api = ui.dialog(
+    name='dialog_api',
+    title='API Key Required',
+    items=[
+        ui.textbox(
+            name='api_key',
+            label='API Key',
+            placeholder='Paste your API key here',
+            password=True,
+            required=True
+        ),
+        ui.buttons(
+            items=[ui.button(name='save_api', label='Save', primary=True)],
+            justify='center'
+        ),
+        ui.separator(label='or'),
+        ui.text('<center>Set the environment variable ANTHROPIC_API_KEY with your API key & restart the app')
+    ],
+    blocking=True,
+    events=['dismissed']
+)
+
 # Fallback card
 fallback = ui.form_card(
     box='fallback',
@@ -125,17 +148,17 @@ def dialog_settings(
             name='settings_tab',
             items=[
                 ui.tab(name='tab_model', label='Model'),
-                ui.tab(name='tab_api', label='API')
+                ui.tab(name='tab_api', label='General')
             ],
             value=settings_tab,
             link=True
         )
     ]
 
-    if settings_tab == 'tab_api':
+    if settings_tab == 'tab_general':
         dialog_items.extend([
             ui.textbox(
-                name='api_key',
+                name='new_api_key',
                 label='API Key',
                 placeholder='Paste your API key here',
                 password=True,
