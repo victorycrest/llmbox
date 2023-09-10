@@ -71,7 +71,7 @@ header = ui.header_card(
 tabs = ui.tab_card(
     box='tabs',
     items=[
-        ui.tab(name='tab_chat', label='Chat', icon='OfficeChat')
+        ui.tab(name='tab_chat', label='Chat', icon='ChatBot')
     ],
     link=True
 )
