@@ -106,7 +106,7 @@ async def save_api(q: Q):
     logging.info('Saving API key to environment')
 
     # Save API key as environment variable
-    os.environ['OPENAI_API_KEY'] = q.args.api_key
+    os.environ['ANTHROPIC_API_KEY'] = q.args.api_key
 
     # Initialize LLM
     if q.client.model == 'claude-instant-1':
