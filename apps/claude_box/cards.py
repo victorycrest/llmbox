@@ -93,7 +93,10 @@ dialog_api = ui.dialog(
             justify='center'
         ),
         ui.separator(label='or'),
-        ui.text('<center>Set the environment variable ANTHROPIC_API_KEY with your API key & restart the app')
+        ui.text('''<center>
+            Set the environment variable ANTHROPIC_API_KEY with your 
+            <a href="https://console.anthropic.com/account/keys" target="_blank">API key</a> 
+            & restart the app''')
     ],
     blocking=True,
     events=['dismissed']
@@ -254,7 +257,7 @@ def crash_report(q: Q) -> ui.FormCard:
 
     for name, source in states:
         dump.append(f'### {name}')
-        dump.append(code_block([f'{k}: {v}' for k, v in expando_to_dict(source).items()]))
+        dump.append(code_block([f'{k}: {v}' for k, v in expando_to_dict(source).items() if k != 'api_key']))
 
     return ui.form_card(
         box='main',

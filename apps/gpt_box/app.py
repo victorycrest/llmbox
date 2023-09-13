@@ -1,5 +1,4 @@
 import logging
-import os
 
 from h2o_wave import Q, main, app, copy_expando, handle_on, on
 from llmbox.llms import GPT35Turbo, GPT4
@@ -75,6 +74,7 @@ async def initialize_client(q: Q):
     q.client.top_p = 0.7
 
     # Initialize llm data
+    q.client.api_key = None
     q.client.chat = Chat()
 
     # Add layouts and header
@@ -87,7 +87,7 @@ async def initialize_client(q: Q):
 
     # Check API
     try:
-        q.client.llm = GPT4()
+        q.client.llm = GPT4(api_key=q.client.api_key)
     except ValueError:
         q.page['meta'].dialog = cards.dialog_api
 
@@ -102,21 +102,25 @@ async def save_api(q: Q):
     Save API key.
     """
 
-    logging.info('Saving API key to environment')
+    logging.info('Saving API key')
 
-    # Save API key as environment variable
-    os.environ['OPENAI_API_KEY'] = q.args.api_key
-
-    # Initialize LLM
-    if q.client.model == 'gpt-3.5-turbo':
-        q.client.llm = GPT35Turbo()
+    # Check API key
+    if q.args.api_key is None or q.args.api_key == '':
+        await handle_fallback(q)
     else:
-        q.client.llm = GPT4()
+        # Save API key
+        q.client.api_key = q.args.api_key
 
-    # Remove dialog
-    q.page['meta'].dialog = None
+        # Initialize LLM
+        if q.client.model == 'gpt-3.5-turbo':
+            q.client.llm = GPT35Turbo(api_key=q.client.api_key)
+        else:
+            q.client.llm = GPT4(api_key=q.client.api_key)
 
-    await q.page.save()
+        # Remove dialog
+        q.page['meta'].dialog = None
+
+        await q.page.save()
 
 
 @on('update_theme')
@@ -209,26 +213,26 @@ async def update_settings(q: Q):
 
     logging.info('Updating settings')
 
-    if q.args.api_key:
-        # Save API key as environment variable if inputted
-        os.environ['OPENAI_API_KEY'] = q.args.api_key
+    if q.args.new_api_key:
+        # Save new API key
+        q.client.api_key = q.args.new_api_key
 
-        # Initialize LLM if API key is inputted
+        # Initialize LLM
         if q.client.model == 'gpt-3.5-turbo':
-            q.client.llm = GPT35Turbo()
+            q.client.llm = GPT35Turbo(api_key=q.client.api_key)
         else:
-            q.client.llm = GPT4()
+            q.client.llm = GPT4(api_key=q.client.api_key)
     elif q.args.model:
-        # Copy settings to client if model is selected
-        copy_expando(q.args, q.client)
+        # Save new model
+        q.client.model = q.args.model
 
-        # Initialize LLM if model is selected
+        # Initialize LLM
         if q.client.model == 'gpt-3.5-turbo':
-            q.client.llm = GPT35Turbo()
+            q.client.llm = GPT35Turbo(api_key=q.client.api_key)
         else:
-            q.client.llm = GPT4()
+            q.client.llm = GPT4(api_key=q.client.api_key)
     else:
-        # Copy settings to client if API key is not inputted
+        # Copy settings to client
         copy_expando(q.args, q.client)
 
     # Update settings change message
