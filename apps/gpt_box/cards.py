@@ -3,7 +3,7 @@ import traceback
 
 from h2o_wave import Q, data, expando_to_dict, ui
 from llmbox.chat import Chat, Role
-from llmbox.llms.claude import ClaudeModels
+from llmbox.llms.gpt import GPTModels
 
 # LLM Box
 llmbox_logo_url = 'https://raw.githubusercontent.com/victorycrest/llmbox/main/docs/source/_static/llmbox_1024.png'
@@ -170,7 +170,7 @@ def dialog_settings(
             ui.dropdown(
                 name='model',
                 label='Model',
-                choices=[ui.choice(name=m.value.lower(), label=m.value.lower()) for m in ClaudeModels],
+                choices=[ui.choice(name=m.value.lower(), label=m.value.lower()) for m in GPTModels],
                 value=model,
                 trigger=True,
                 tooltip='Model to be used.'
