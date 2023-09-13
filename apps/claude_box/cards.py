@@ -148,7 +148,7 @@ def dialog_settings(
             name='settings_tab',
             items=[
                 ui.tab(name='tab_model', label='Model'),
-                ui.tab(name='tab_api', label='General')
+                ui.tab(name='tab_general', label='General')
             ],
             value=settings_tab,
             link=True
@@ -162,7 +162,8 @@ def dialog_settings(
                 label='API Key',
                 placeholder='Paste your API key here',
                 password=True,
-                trigger=True
+                trigger=True,
+                tooltip='The API key will be saved into the environment and not accessible by the app.'
             )
         ])
     elif settings_tab == 'tab_model':
@@ -172,7 +173,8 @@ def dialog_settings(
                 label='Model',
                 choices=[ui.choice(name=m.value.lower(), label=m.value.lower()) for m in ClaudeModels],
                 value=model,
-                trigger=True
+                trigger=True,
+                tooltip='Model to be used.'
             ),
             ui.spinbox(
                 name='max_tokens',
@@ -181,7 +183,8 @@ def dialog_settings(
                 max=99999,
                 step=1,
                 value=max_tokens,
-                trigger=True
+                trigger=True,
+                tooltip='Maximum number of tokens to generate before stopping.'
             ),
             ui.slider(
                 name='temperature',
@@ -190,7 +193,8 @@ def dialog_settings(
                 max=1.0,
                 step=0.01,
                 value=temperature,
-                trigger=True
+                trigger=True,
+                tooltip='Amount of randomness injected into the response.'
             ),
             ui.slider(
                 name='top_p',
@@ -199,7 +203,8 @@ def dialog_settings(
                 max=1.0,
                 step=0.01,
                 value=top_p,
-                trigger=True
+                trigger=True,
+                tooltip='Cutoff probability for nucleus sampling of each subsequent token.'
             ),
             ui.spinbox(
                 name='top_k',
@@ -208,7 +213,8 @@ def dialog_settings(
                 max=99999,
                 step=1,
                 value=top_k,
-                trigger=True
+                trigger=True,
+                tooltip='Number of options to sample from for each subsequent token.'
             )
         ])
     else:
