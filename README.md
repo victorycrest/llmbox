@@ -37,10 +37,10 @@ Why code when you don't have to? But ok, there is a Python package too.
 ## Applications 🖥️
 
 #### Playground
-| App                                                                            | Description                                      | LLMs                       |
-|--------------------------------------------------------------------------------|--------------------------------------------------|----------------------------|
-| [Claude Box](https://github.com/victorycrest/llmbox/tree/main/apps/claude_box) | Chat with the Claude family of LLMs by Anthropic | Claude-2, Claude-Instant-1 |
-| [GPT Box](https://github.com/victorycrest/llmbox/tree/main/apps/gpt_box)       | Chat with the GPT family of LLMs by OpenAI       | GPT-4, GPT-3.5-Turbo       |
+| [Claude Box](https://github.com/victorycrest/llmbox/tree/main/apps/claude_box)               | [GPT Box](https://github.com/victorycrest/llmbox/tree/main/apps/gpt_box)                  |
+|----------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------|
+| <center>Chat with the Claude family of LLMs by Anthropic                                     | <center>Chat with the GPT family of LLMs by OpenAI                                        |
+| <center><a href="https://huggingface.co/spaces/victorycrest/claude_box" target="_blank">Demo | <center><a href="https://huggingface.co/spaces/victorycrest/gpt_box" target="_blank">Demo |
 
 ## Credits 🙏
 

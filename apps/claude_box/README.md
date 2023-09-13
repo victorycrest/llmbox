@@ -29,7 +29,7 @@ python3 -m pip install -U pip
 python3 -m pip install -r requirements.txt
 ```
 
-5. (Optional) Add [Anthropic API Key](https://console.anthropic.com/account/keys) to the environment
+5. (Optional) Add <a href="https://console.anthropic.com/account/keys" target="_blank">Anthropic API Key</a> to the environment
 
 ```commandline
 export ANTHROPIC_API_KEY="YOUR_KEY"
@@ -41,6 +41,6 @@ export ANTHROPIC_API_KEY="YOUR_KEY"
 wave run app
 ```
 
-7. View the application on your local browser: [http://localhost:10101](http://localhost:10101)
+7. View the application on your local browser: <a href="http://localhost:10101" target="_blank">http://localhost:10101</a>
 
-8. (If Step 5 was skipped) Add [Anthropic API Key](https://console.anthropic.com/account/keys) to the app directly in the UI.
+8. (If Step 5 was skipped) Add <a href="https://console.anthropic.com/account/keys" target="_blank">Anthropic API Key</a> to the app directly in the UI.
