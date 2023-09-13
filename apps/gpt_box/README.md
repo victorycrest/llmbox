@@ -1,4 +1,4 @@
-<h2>GPT Box <img src="https://raw.githubusercontent.com/victorycrest/llmbox/main/logo/llmbox_1024.png" width="18px"></img></h2>
+<h2>GPT Box <img src="https://raw.githubusercontent.com/victorycrest/llmbox/main/docs/source/_static/llmbox_1024.png" width="18px"></img></h2>
 Chat with the GPT family of LLMs by OpenAI.
 
 ## Setup ⚙️

@@ -1,4 +1,4 @@
-<h2>Claude Box <img src="https://raw.githubusercontent.com/victorycrest/llmbox/main/logo/llmbox_1024.png" width="18px"></img></h2>
+<h2>Claude Box <img src="https://raw.githubusercontent.com/victorycrest/llmbox/main/docs/source/_static/llmbox_1024.png" width="18px"></img></h2>
 Chat with the Claude family of LLMs by Anthropic.
 
 ## Setup ⚙️
