@@ -137,7 +137,8 @@ def dialog_settings(
     max_tokens: int,
     temperature: float,
     top_p: float,
-    top_k: int
+    top_k: int,
+    save_message: bool = False
 ) -> ui.Dialog:
     """
     Dialog for settings.
@@ -155,18 +156,7 @@ def dialog_settings(
         )
     ]
 
-    if settings_tab == 'tab_general':
-        dialog_items.extend([
-            ui.textbox(
-                name='new_api_key',
-                label='API Key',
-                placeholder='Paste your API key here',
-                password=True,
-                trigger=True,
-                tooltip='The API key will be saved into the environment and not accessible by the app.'
-            )
-        ])
-    elif settings_tab == 'tab_model':
+    if settings_tab == 'tab_model':
         dialog_items.extend([
             ui.dropdown(
                 name='model',
@@ -217,8 +207,22 @@ def dialog_settings(
                 tooltip='Number of options to sample from for each subsequent token.'
             )
         ])
+    elif settings_tab == 'tab_general':
+        dialog_items.extend([
+            ui.textbox(
+                name='new_api_key',
+                label='API Key',
+                placeholder='Paste your API key here',
+                password=True,
+                trigger=True,
+                tooltip='The API key will be saved into the environment and not accessible by the app.'
+            )
+        ])
     else:
         pass
+
+    if save_message:
+        dialog_items.append(ui.message_bar(type='success', text='Settings saved successfully!'))
 
     return ui.dialog(
         name='dialog_settings',

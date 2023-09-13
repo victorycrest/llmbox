@@ -235,6 +235,17 @@ async def update_settings(q: Q):
         # Copy settings to client if API key is not inputted
         copy_expando(q.args, q.client)
 
+    # Update settings change message
+    q.page['meta'].dialog = cards.dialog_settings(
+        settings_tab=q.client.settings_tab,
+        model=q.client.model,
+        max_tokens=q.client.max_tokens,
+        temperature=q.client.temperature,
+        top_p=q.client.top_p,
+        top_k=q.client.top_k,
+        save_message=True
+    )
+
     await handle_fallback(q)
 
 
